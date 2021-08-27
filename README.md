@@ -134,7 +134,7 @@ Add the below to a playbook to run those role against hosts belonging to the
 ```yaml
 - hosts: kafka-nodes
   roles:
-    - sleighzy.kafka
+    - thuvh.kafka
 ```
 
 ## Linting
