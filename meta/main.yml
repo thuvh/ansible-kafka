@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  name: kafka
   author: Hoai-Thu Vuong
   description: Apache Kafka installation for RHEL/CentOS and Debian/Ubuntu
   license: MIT
