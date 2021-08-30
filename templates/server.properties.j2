@@ -44,7 +44,7 @@ background.threads={{ kafka_background_threads }}
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
 #listeners=PLAINTEXT://:9092
-{% if kafka_listeners %}
+{% if kafka_listeners is defined and kafka_listeners|length %}
 listeners={{ kafka_listeners }}
 {% else %}
 listeners={{ kafka_listener_protocol }}://{{ kafka_listener_hostname }}:{{ kafka_listener_port }}
@@ -54,7 +54,7 @@ listeners={{ kafka_listener_protocol }}://{{ kafka_listener_hostname }}:{{ kafka
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
 #advertised.listeners=PLAINTEXT://your.host.name:9092
-{% if kafka_advertised_listeners %}
+{% if kafka_advertised_listeners is defined and kafka_advertised_listeners|length %}
 listeners={{ kafka_advertised_listeners }}
 {% else %}
 advertised.listeners={{ kafka_advertised_listener_protocol }}://{{ kafka_advertised_listener_hostname }}:{{ kafka_advertised_listener_port }}
