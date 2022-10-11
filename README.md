@@ -1,9 +1,9 @@
 # Apache Kafka
 
 [![Build Status]](https://travis-ci.org/sleighzy/ansible-kafka)
-![Lint Code Base] ![Ansible Lint] ![Molecule]
+![Lint Code Base] ![Molecule]
 
-Ansible role to install and configure [Apache Kafka] 2.8.0
+Ansible role to install and configure [Apache Kafka] 3.2.0
 
 [Apache Kafka] is a distributed event streaming platform using publish-subscribe
 topics. Applications and streaming components can produce and consume messages
@@ -24,7 +24,7 @@ elastically scaled with no downtime.
 ## Requirements
 
 - [Apache ZooKeeper]
-- Java 8 / 11
+- Java 8 (deprecated) / 11 / 17
 
 The below Apache ZooKeeper role from Ansible Galaxy can be used if one is
 needed.
@@ -42,48 +42,52 @@ See <https://github.com/ansible/ansible/issues/71528> for more information.
 
 ## Role Variables
 
-| Variable                                       | Default                               |
-| ---------------------------------------------- | ------------------------------------- |
-| kafka_download_base_url                        | <http://www-eu.apache.org/dist/kafka> |
-| kafka_version                                  | 2.8.0                                 |
-| kafka_scala_version                            | 2.13                                  |
-| kafka_create_user_group                        | true                                  |
-| kafka_user                                     | kafka                                 |
-| kafka_group                                    | kafka                                 |
-| kafka_root_dir                                 | /opt                                  |
-| kafka_dir                                      | {{ kafka_root_dir }}/kafka            |
-| kafka_start                                    | yes                                   |
-| kafka_restart                                  | yes                                   |
-| kafka_log_dir                                  | /var/log/kafka                        |
-| kafka_broker_id                                | 0                                     |
-| kafka_java_heap                                | -Xms1G -Xmx1G                         |
-| kafka_background_threads                       | 10                                    |
-| kafka_listeners                                | PLAINTEXT://:9092                     |
-| kafka_num_network_threads                      | 3                                     |
-| kafka_num_io_threads                           | 8                                     |
-| kafka_num_replica_fetchers                     | 1                                     |
-| kafka_socket_send_buffer_bytes                 | 102400                                |
-| kafka_socket_receive_buffer_bytes              | 102400                                |
-| kafka_socket_request_max_bytes                 | 104857600                             |
-| kafka_replica_socket_receive_buffer_bytes      | 65536                                 |
-| kafka_data_log_dirs                            | /var/lib/kafka/logs                   |
-| kafka_num_partitions                           | 1                                     |
-| kafka_num_recovery_threads_per_data_dir        | 1                                     |
-| kafka_log_cleaner_threads                      | 1                                     |
-| kafka_offsets_topic_replication_factor         | 1                                     |
-| kafka_transaction_state_log_replication_factor | 1                                     |
-| kafka_transaction_state_log_min_isr            | 1                                     |
-| kafka_log_retention_hours                      | 168                                   |
-| kafka_log_segment_bytes                        | 1073741824                            |
-| kafka_log_retention_check_interval_ms          | 300000                                |
-| kafka_auto_create_topics_enable                | false                                 |
-| kafka_delete_topic_enable                      | true                                  |
-| kafka_default_replication_factor               | 1                                     |
-| kafka_group_initial_rebalance_delay_ms         | 0                                     |
-| kafka_zookeeper_connect                        | localhost:2181                        |
-| kafka_zookeeper_connection_timeout             | 6000                                  |
-| kafka_bootstrap_servers                        | localhost:9092                        |
-| kafka_consumer_group_id                        | kafka-consumer-group                  |
+| Variable                                       | Default                          |
+| ---------------------------------------------- | -------------------------------- |
+| kafka_download_base_url                        | <https://dlcdn.apache.org/kafka> |
+| kafka_download_validate_certs                  | yes                              |
+| kafka_version                                  | 3.2.0                            |
+| kafka_scala_version                            | 2.13                             |
+| kafka_create_user_group                        | true                             |
+| kafka_user                                     | kafka                            |
+| kafka_group                                    | kafka                            |
+| kafka_root_dir                                 | /opt                             |
+| kafka_dir                                      | {{ kafka_root_dir }}/kafka       |
+| kafka_start                                    | yes                              |
+| kafka_restart                                  | yes                              |
+| kafka_log_dir                                  | /var/log/kafka                   |
+| kafka_broker_id                                | 0                                |
+| kafka_java_heap                                | -Xms1G -Xmx1G                    |
+| kafka_background_threads                       | 10                               |
+| kafka_listeners                                | PLAINTEXT://:9092                |
+| kafka_num_network_threads                      | 3                                |
+| kafka_num_io_threads                           | 8                                |
+| kafka_num_replica_fetchers                     | 1                                |
+| kafka_socket_send_buffer_bytes                 | 102400                           |
+| kafka_socket_receive_buffer_bytes              | 102400                           |
+| kafka_socket_request_max_bytes                 | 104857600                        |
+| kafka_replica_socket_receive_buffer_bytes      | 65536                            |
+| kafka_data_log_dirs                            | /var/lib/kafka/logs              |
+| kafka_num_partitions                           | 1                                |
+| kafka_num_recovery_threads_per_data_dir        | 1                                |
+| kafka_log_cleaner_threads                      | 1                                |
+| kafka_offsets_topic_replication_factor         | 1                                |
+| kafka_transaction_state_log_replication_factor | 1                                |
+| kafka_transaction_state_log_min_isr            | 1                                |
+| kafka_log_retention_hours                      | 168                              |
+| kafka_log_segment_bytes                        | 1073741824                       |
+| kafka_log_retention_check_interval_ms          | 300000                           |
+| kafka_auto_create_topics_enable                | false                            |
+| kafka_delete_topic_enable                      | true                             |
+| kafka_default_replication_factor               | 1                                |
+| kafka_group_initial_rebalance_delay_ms         | 0                                |
+| kafka_zookeeper_connect                        | localhost:2181                   |
+| kafka_zookeeper_connection_timeout             | 6000                             |
+| kafka_bootstrap_servers                        | localhost:9092                   |
+| kafka_consumer_group_id                        | kafka-consumer-group             |
+
+See [log4j.yml](./defaults/main/002-log4j.yml) for detailed  
+log4j-related available variables.
 
 ## Starting and Stopping Kafka services using systemd
 
@@ -101,8 +105,8 @@ See <https://github.com/ansible/ansible/issues/71528> for more information.
 | ------------------------------ | -------------------- |
 | ZooKeeper connection           | localhost:2181       |
 | Kafka bootstrap servers        | localhost:9092       |
-| Kafka consumer group Id        | kafka-consumer-group |
-| Kafka broker id                | 0                    |
+| Kafka consumer group ID        | kafka-consumer-group |
+| Kafka broker ID                | 0                    |
 | Number of partitions           | 1                    |
 | Data log file retention period | 168 hours            |
 | Enable auto topic creation     | false                |
@@ -195,9 +199,8 @@ molecule destroy
 
 [![MIT license]](https://lbesson.mit-license.org/)
 
-[ansible lint]:
-  https://github.com/sleighzy/ansible-kafka/workflows/Ansible%20Lint/badge.svg
 [ansible-lint]: https://docs.ansible.com/ansible-lint/
+[ansible molecule]: https://molecule.readthedocs.io/
 [apache kafka]: http://kafka.apache.org/
 [apache zookeeper]: https://zookeeper.apache.org/
 [build status]: https://travis-ci.org/sleighzy/ansible-kafka.svg?branch=master

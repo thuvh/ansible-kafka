@@ -1,7 +1,8 @@
 ---
 galaxy_info:
-  role_name: kafka
   author: Hoai-Thu Vuong
+  namespace: thuvh
+  role_name: kafka
   description: Apache Kafka installation for RHEL/CentOS and Debian/Ubuntu
   license: MIT
   min_ansible_version: 2.10.4
