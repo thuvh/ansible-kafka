@@ -86,7 +86,7 @@ See <https://github.com/ansible/ansible/issues/71528> for more information.
 | kafka_bootstrap_servers                        | localhost:9092                   |
 | kafka_consumer_group_id                        | kafka-consumer-group             |
 
-See [log4j.yml](./defaults/main/002-log4j.yml) for detailed  
+See [log4j.yml](./defaults/main/002-log4j.yml) for detailed
 log4j-related available variables.
 
 ## Starting and Stopping Kafka services using systemd
@@ -203,11 +203,9 @@ molecule destroy
 [ansible molecule]: https://molecule.readthedocs.io/
 [apache kafka]: http://kafka.apache.org/
 [apache zookeeper]: https://zookeeper.apache.org/
-[build status]: https://travis-ci.org/sleighzy/ansible-kafka.svg?branch=master
 [lint code base]:
   https://github.com/sleighzy/ansible-kafka/workflows/Lint%20Code%20Base/badge.svg
 [molecule]:
   https://github.com/sleighzy/ansible-kafka/workflows/Molecule/badge.svg
 [molecule installation guide]:
   https://molecule.readthedocs.io/en/stable/installation.html
-[mit license]: https://img.shields.io/badge/License-MIT-blue.svg
