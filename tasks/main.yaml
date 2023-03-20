@@ -115,6 +115,17 @@
   tags:
     - kafka_dirs
 
+- name: Create directory for kafka connect
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    group: '{{ kafka_group }}'
+    owner: '{{ kafka_user }}'
+    mode: 0755
+  loop: '{{ kafka_connect_plugin_path | split(',') }}'
+  tags:
+    - kafka_dirs
+
 - name: Template configuration file to server.properties
   ansible.builtin.template:
     src: server.properties.j2
