@@ -122,7 +122,7 @@
     group: '{{ kafka_group }}'
     owner: '{{ kafka_user }}'
     mode: 0755
-  loop: '{{ kafka_connect_plugin_path | split(',') }}'
+  loop: '{{ kafka_connect_plugin_path | split(",") }}'
   tags:
     - kafka_dirs
 
