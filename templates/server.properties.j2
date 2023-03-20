@@ -45,23 +45,17 @@ background.threads={{ kafka_background_threads }}
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
 #listeners=PLAINTEXT://:9092
-{% if kafka_listeners is defined and kafka_listeners|length %}
-listeners={{ kafka_listeners }}
-{% else %}
-listeners={{ kafka_listener_protocol }}://{{ kafka_listener_hostname }}:{{ kafka_listener_port }}
-{% endif %}
+listeners={{ kafka_listeners | join(",")}}
 
 # Listener name, hostname and port the broker will advertise to clients.
 # If not set, it uses the value for "listeners".
 #advertised.listeners=PLAINTEXT://your.host.name:9092
-{% if kafka_advertised_listeners is defined and kafka_advertised_listeners|length %}
-listeners={{ kafka_advertised_listeners }}
-{% else %}
-advertised.listeners={{ kafka_advertised_listener_protocol }}://{{ kafka_advertised_listener_hostname }}:{{ kafka_advertised_listener_port }}
+{% if kafka_advertised_listeners is defined %}
+advertised.listeners={{ kafka_advertised_listeners | join(",")}}
 {% endif %}
 
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
-listener.security.protocol.map={{ kafka_listener_security_protocol_map }}
+#listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
 
 # The number of threads that the server uses for receiving requests from the network and sending responses to the network
 num.network.threads={{ kafka_num_network_threads }}
